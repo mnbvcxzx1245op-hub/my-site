@@ -6,7 +6,7 @@
     <title>Егор RONTIK | Фотограф в Егорьевске</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ===== ВСЕ ОСНОВНЫЕ СТИЛИ (без изменений) ===== */
+        /* ===== ОСНОВНЫЕ СТИЛИ (без изменений) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -67,384 +67,163 @@
             z-index: 0;
             overflow: hidden;
         }
-        .blob-pastel {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.18;
-            animation: floatBlob 22s infinite alternate ease-in-out;
-            transition: background 0.3s ease;
-        }
-        .blob1 {
-            width: 55vw;
-            height: 55vw;
-            background: var(--blob1);
-            top: -20%;
-            left: -15%;
-            animation-duration: 24s;
-        }
-        .blob2 {
-            width: 50vw;
-            height: 50vw;
-            background: var(--blob2);
-            bottom: -20%;
-            right: -10%;
-            animation-duration: 28s;
-            animation-delay: -3s;
-        }
-        .blob3 {
-            width: 45vw;
-            height: 45vw;
-            background: var(--blob3);
-            top: 40%;
-            left: 55%;
-            animation-duration: 26s;
-            animation-delay: -6s;
-        }
+        .blob-pastel { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.18; animation: floatBlob 22s infinite alternate ease-in-out; transition: background 0.3s ease; }
+        .blob1 { width: 55vw; height: 55vw; background: var(--blob1); top: -20%; left: -15%; animation-duration: 24s; }
+        .blob2 { width: 50vw; height: 50vw; background: var(--blob2); bottom: -20%; right: -10%; animation-duration: 28s; animation-delay: -3s; }
+        .blob3 { width: 45vw; height: 45vw; background: var(--blob3); top: 40%; left: 55%; animation-duration: 26s; animation-delay: -6s; }
         @keyframes floatBlob {
             0% { transform: translate(0, 0) scale(1); }
             100% { transform: translate(5%, 8%) scale(1.15); }
         }
-        .edge-blur-top,
-        .edge-blur-bottom {
-            position: fixed;
-            left: 0;
-            right: 0;
-            pointer-events: none;
-            z-index: 10;
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+        .edge-blur-top, .edge-blur-bottom {
+            position: fixed; left: 0; right: 0; pointer-events: none; z-index: 10;
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
             mask-image: linear-gradient(to bottom, black, transparent);
             -webkit-mask-image: linear-gradient(to bottom, black, transparent);
         }
-        .edge-blur-top {
-            top: 0;
-            height: 200px;
-            background: var(--edge-blur-top-bg);
-        }
-        .edge-blur-bottom {
-            bottom: 0;
-            height: 200px;
-            background: var(--edge-blur-bottom-bg);
-            mask-image: linear-gradient(to top, black, transparent);
-            -webkit-mask-image: linear-gradient(to top, black, transparent);
-        }
+        .edge-blur-top { top: 0; height: 200px; background: var(--edge-blur-top-bg); }
+        .edge-blur-bottom { bottom: 0; height: 200px; background: var(--edge-blur-bottom-bg); mask-image: linear-gradient(to top, black, transparent); -webkit-mask-image: linear-gradient(to top, black, transparent); }
+
+        /* ===== ВЕРХНЯЯ ПЛАШКА С АНИМАЦИЕЙ ===== */
         .glass-top-bar {
-            position: fixed;
-            top: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            max-width: 90vw;
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 60px;
-            border: none;
-            box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            padding: 5px 28px;
-            white-space: nowrap;
+            position: fixed; top: 24px; left: 50%; transform: translateX(-50%); width: auto; max-width: 90vw;
+            background: var(--glass-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-radius: 60px; border: none; box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
+            z-index: 1000; transition: all 0.4s ease; padding: 5px 28px; white-space: nowrap;
         }
         .glass-top-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: inherit;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
             background: linear-gradient(var(--highlight-angle, 135deg), rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.05) 100%);
-            pointer-events: none;
-            opacity: var(--highlight-opacity-strong, 0.38);
-            transition: opacity 0.05s linear;
+            pointer-events: none; opacity: var(--highlight-opacity-strong, 0.38); transition: opacity 0.05s linear;
         }
         .top-logo {
-            font-weight: 620;
-            font-size: 1.2rem;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
+            font-weight: 620; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text-primary);
+            opacity: 0.2; transform: scale(0.8); transition: opacity 0.6s ease, transform 0.6s ease;
         }
+        /* При скролле логотип становится видимым и увеличивается */
+        body.scrolled .glass-top-bar {
+            padding: 8px 32px; /* чуть расширяем */
+            background: rgba(255,255,255,0.6);
+        }
+        body.dark.scrolled .glass-top-bar {
+            background: rgba(30,30,35,0.8);
+        }
+        body.scrolled .top-logo {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===== ОСТАЛЬНЫЕ СТИЛИ ===== */
         .glass-bottom-bar {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: auto;
-            max-width: 90vw;
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 40px;
-            border: none;
-            box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            padding: 6px 28px;
-            flex-wrap: nowrap;
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); width: auto; max-width: 90vw;
+            background: var(--glass-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-radius: 40px; border: none; box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
+            z-index: 1000; transition: all 0.3s ease; display: flex; align-items: center; gap: 32px; padding: 6px 28px; flex-wrap: nowrap;
         }
         .glass-bottom-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: inherit;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
             background: linear-gradient(var(--highlight-angle, 135deg), rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.05) 100%);
-            pointer-events: none;
-            opacity: var(--highlight-opacity-strong, 0.38);
-            transition: opacity 0.05s linear;
+            pointer-events: none; opacity: var(--highlight-opacity-strong, 0.38); transition: opacity 0.05s linear;
         }
-        .nav-menu {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-            position: relative;
-        }
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.2s ease;
-            white-space: nowrap;
-            padding: 6px 0;
-            cursor: pointer;
-        }
-        .nav-link.active {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        .nav-indicator {
-            position: absolute;
-            bottom: -2px;
-            height: 2.5px;
-            background: var(--indicator-color);
-            border-radius: 4px;
-            transition: left 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1), width 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            will-change: left, width;
-        }
+        .nav-menu { display: flex; gap: 32px; align-items: center; position: relative; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.2s ease; white-space: nowrap; padding: 6px 0; cursor: pointer; }
+        .nav-link.active { color: var(--text-primary); font-weight: 600; }
+        .nav-indicator { position: absolute; bottom: -2px; height: 2.5px; background: var(--indicator-color); border-radius: 4px; transition: left 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1), width 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); will-change: left, width; }
+
         .floating-theme-toggle {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
-            z-index: 1100;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            overflow: hidden;
+            position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%;
+            background: var(--glass-bg); backdrop-filter: blur(24px); border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--text-primary);
+            box-shadow: var(--glass-shadow-out), var(--glass-shadow-in); z-index: 1100;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); overflow: hidden;
         }
         .floating-theme-toggle::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: inherit;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
             background: linear-gradient(var(--highlight-angle, 135deg), rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.02) 100%);
-            pointer-events: none;
-            opacity: var(--highlight-opacity-weak, 0.22);
+            pointer-events: none; opacity: var(--highlight-opacity-weak, 0.22);
         }
-        .floating-theme-toggle:hover {
-            transform: scale(0.94);
-            background: rgba(255,255,255,0.65);
-        }
-        .floating-theme-toggle i {
-            pointer-events: none;
-            font-weight: 400;
-        }
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 32px;
-            position: relative;
-            z-index: 2;
-        }
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 120px 20px 100px;
-        }
-        .hero-content {
-            max-width: 800px;
-            animation: fadeUp 0.8s ease-out;
-        }
-        .hero-sub {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
+        .floating-theme-toggle:hover { transform: scale(0.94); background: rgba(255,255,255,0.65); }
+        .floating-theme-toggle i { pointer-events: none; font-weight: 400; }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2; }
+
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 100px; }
+        .hero-content { max-width: 800px; animation: fadeUp 0.8s ease-out; }
+        .hero-sub { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 20px; }
         .hero h1 {
             font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 700;
             letter-spacing: -0.02em;
             margin-bottom: 24px;
             color: var(--text-primary);
+            transition: transform 0.6s ease, opacity 0.6s ease;
         }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
+        /* При скролле заголовок сжимается и улетает вверх */
+        body.scrolled .hero h1 {
+            transform: scale(0.3) translateY(-100px);
+            opacity: 0;
+            pointer-events: none;
         }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 40px; }
+
         .glass-card, .about-text, .contacts-card, .avatar, .glass-button, .telegram-icon-large {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px);
-            border-radius: 28px;
-            border: none;
-            box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
-            transition: box-shadow 0.3s ease, transform 0.2s ease-out;
-            position: relative;
-            overflow: hidden;
-            will-change: transform;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            word-break: break-word;
+            background: var(--glass-bg); backdrop-filter: blur(24px); border-radius: 28px; border: none;
+            box-shadow: var(--glass-shadow-out), var(--glass-shadow-in); transition: box-shadow 0.3s ease, transform 0.2s ease-out;
+            position: relative; overflow: hidden; will-change: transform; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;
         }
         .glass-card::after, .about-text::after, .contacts-card::after, .avatar::after, .glass-button::after, .telegram-icon-large::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: inherit;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
             background: linear-gradient(var(--highlight-angle, 135deg), rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.03) 100%);
-            pointer-events: none;
-            opacity: var(--highlight-opacity-weak, 0.22);
-            transition: opacity 0.1s linear;
+            pointer-events: none; opacity: var(--highlight-opacity-weak, 0.22); transition: opacity 0.1s linear;
         }
         .glass-card:hover::after, .about-text:hover::after, .contacts-card:hover::after, .avatar:hover::after, .glass-button:hover::after, .telegram-icon-large:hover::after {
             opacity: var(--highlight-opacity-strong, 0.38);
         }
+
         .glass-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            border-radius: 40px;
-            padding: 12px 32px;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 12px; border-radius: 40px; padding: 12px 32px;
+            font-weight: 600; color: var(--text-primary); text-decoration: none; font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        .glass-button:hover {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.65);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), var(--glass-shadow-in);
-        }
-        .section {
-            padding: 100px 0;
-            position: relative;
-        }
-        .section-title {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 56px;
-            text-align: center;
-            color: var(--text-primary);
-        }
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 56px;
-            align-items: center;
-        }
-        .avatar {
-            max-width: 340px;
-            margin: 0 auto;
-            border-radius: 32px;
-            overflow: hidden;
-            padding: 8px;
-        }
-        .avatar img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 24px;
-        }
-        .about-text {
-            padding: 36px;
-        }
-        .about-text p {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
+        .glass-button:hover { transform: translateY(-2px); background: rgba(255,255,255,0.65); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), var(--glass-shadow-in); }
 
-        /* ===== ГАЛЕРЕЯ С ГОРИЗОНТАЛЬНЫМ СКРОЛЛОМ, КНОПКАМИ И СКРЫТЫМ СКРОЛЛБАРОМ ===== */
+        .section { padding: 100px 0; position: relative; }
+        .section-title { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 56px; text-align: center; color: var(--text-primary); }
+
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+        .avatar { max-width: 340px; margin: 0 auto; border-radius: 32px; overflow: hidden; padding: 8px; }
+        .avatar img { width: 100%; height: auto; display: block; border-radius: 24px; }
+        .about-text { padding: 36px; }
+        .about-text p { color: var(--text-secondary); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6; }
+
+        /* ===== ГАЛЕРЕЯ ===== */
         .portfolio-gallery {
             padding: 30px 20px 10px 20px;
         }
 
         .series-current-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 24px;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            transition: opacity 0.3s ease;
-            line-height: 1.2;
+            font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 24px;
+            color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.2;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .series-current-title.animating {
+            opacity: 0;
+            transform: translateY(-8px);
         }
 
-        .series-scroll-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0;
-        }
+        .series-scroll-wrapper { position: relative; display: flex; align-items: center; gap: 0; }
 
         .series-scroll {
-            display: flex;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            gap: 20px;
-            padding: 10px 0 20px 0;
-            scroll-behavior: smooth;
-            flex: 1;
-            margin: 0 -10px;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch; gap: 20px; padding: 10px 0 20px 0;
+            scroll-behavior: smooth; flex: 1; margin: 0 -10px;
+            scrollbar-width: none; -ms-overflow-style: none;
         }
-        .series-scroll::-webkit-scrollbar {
-            display: none;
-        }
+        .series-scroll::-webkit-scrollbar { display: none; }
 
         .series-block {
-            flex: 0 0 100%;
-            max-width: 100%;
-            scroll-snap-align: center;
-            padding: 0 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex: 0 0 100%; max-width: 100%; scroll-snap-align: center;
+            padding: 0 5px; display: flex; flex-direction: column; align-items: center;
         }
 
         .series-grid {
@@ -457,84 +236,35 @@
         }
 
         .series-grid-item {
-            position: relative;
-            border-radius: 28px;
-            overflow: hidden;
-            cursor: pointer;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(4px);
+            position: relative; border-radius: 28px; overflow: hidden; cursor: pointer;
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), inset 0 0 0 0.5px rgba(255,255,255,0.6);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             aspect-ratio: 4 / 3;
         }
-        .series-grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .series-grid-item:hover,
-        .series-grid-item:active {
-            transform: scale(1.02);
-            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.15), inset 0 0 0 0.5px rgba(255,255,255,0.8);
-        }
-        .series-grid-item:hover img,
-        .series-grid-item:active img {
-            transform: scale(1.02);
-        }
+        .series-grid-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+        .series-grid-item:hover, .series-grid-item:active { transform: scale(1.02); box-shadow: 0 16px 30px rgba(0, 0, 0, 0.15), inset 0 0 0 0.5px rgba(255,255,255,0.8); }
+        .series-grid-item:hover img, .series-grid-item:active img { transform: scale(1.02); }
 
         /* ===== СТРЕЛКИ ===== */
         .series-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 5;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: none;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: var(--text-primary);
-            cursor: pointer;
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+            background: var(--glass-bg); backdrop-filter: blur(12px); border: none; border-radius: 50%;
+            width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: var(--text-primary); cursor: pointer;
             box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
-            transition: all 0.25s ease;
-            opacity: 0;
-            pointer-events: none;
+            transition: all 0.25s ease; opacity: 0; pointer-events: none;
         }
-        .series-arrow:hover {
-            transform: translateY(-50%) scale(1.08);
-            background: rgba(255,255,255,0.7);
-        }
-        .series-arrow:active {
-            transform: translateY(-50%) scale(0.92);
-        }
-
-        .series-arrow-left {
-            left: -10px;
-        }
-        .series-arrow-right {
-            right: -10px;
-        }
-
+        .series-arrow:hover { transform: translateY(-50%) scale(1.08); background: rgba(255,255,255,0.7); }
+        .series-arrow:active { transform: translateY(-50%) scale(0.92); }
+        .series-arrow-left { left: -10px; }
+        .series-arrow-right { right: -10px; }
         @media (min-width: 861px) {
-            .series-scroll-wrapper:hover .series-arrow {
-                opacity: 1;
-                pointer-events: auto;
-            }
-            .series-arrow {
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s ease;
-            }
+            .series-scroll-wrapper:hover .series-arrow { opacity: 1; pointer-events: auto; }
+            .series-arrow { opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s ease; }
         }
 
-        /* ===== ПЛАШКА "БОЛЬШЕ ФОТО В ТГ" ===== */
+        /* ===== ПЛАШКА "БОЛЬШЕ ФОТО" ===== */
         .more-photos-block {
             text-align: center;
             margin-top: 30px;
@@ -551,124 +281,40 @@
             padding: 12px 36px;
         }
 
-        /* ===== КОНТАКТЫ, ФУТЕР и прочее ===== */
-        .contacts-card {
-            max-width: 560px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 40px 36px;
-        }
-        .telegram-only {
-            display: flex;
-            justify-content: center;
-            margin: 28px 0 24px;
-        }
+        /* ===== КОНТАКТЫ (без email) ===== */
+        .contacts-card { max-width: 560px; margin: 0 auto; text-align: center; padding: 40px 36px; }
+        .telegram-only { display: flex; justify-content: center; margin: 28px 0 24px; }
         .telegram-icon-large {
-            width: 86px;
-            height: 86px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 60px;
-            color: var(--text-primary);
-            font-size: 2.8rem;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            text-decoration: none;
+            width: 86px; height: 86px; display: flex; align-items: center; justify-content: center;
+            border-radius: 60px; color: var(--text-primary); font-size: 2.8rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); text-decoration: none;
         }
-        .telegram-icon-large:hover {
-            transform: translateY(-4px) scale(1.02);
-        }
-        .contact-info p {
-            margin: 14px 0;
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-        .contact-info i {
-            margin-right: 12px;
-            color: var(--accent);
-        }
-        .footer {
-            text-align: center;
-            padding: 32px 20px 90px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            position: relative;
-            z-index: 2;
-        }
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .telegram-icon-large:hover { transform: translateY(-4px) scale(1.02); }
+        .contact-info p { margin: 14px 0; font-size: 1rem; color: var(--text-secondary); }
+        .contact-info i { margin-right: 12px; color: var(--accent); }
+
+        /* ===== ФУТЕР УДАЛЁН ===== */
+
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
 
         /* ===== ЛАЙТБОКС ===== */
         .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(28px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.25s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(28px);
+            display: flex; align-items: center; justify-content: center; z-index: 2000;
+            opacity: 0; visibility: hidden; transition: 0.25s ease;
         }
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .lightbox-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .lightbox-content img {
-            max-width: 100%;
-            max-height: 90vh;
-            width: auto;
-            height: auto;
-            border-radius: 32px;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.4);
-            object-fit: contain;
-        }
+        .lightbox.active { opacity: 1; visibility: visible; }
+        .lightbox-content { position: relative; max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; }
+        .lightbox-content img { max-width: 100%; max-height: 90vh; width: auto; height: auto; border-radius: 32px; box-shadow: 0 25px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4); object-fit: contain; }
         .close-lightbox {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            background: rgba(255,255,255,0.5);
-            backdrop-filter: blur(16px);
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #1C1C1E;
-            font-size: 1.4rem;
-            box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.8);
+            position: absolute; top: -50px; right: 0; background: rgba(255,255,255,0.5); backdrop-filter: blur(16px);
+            border: none; width: 44px; height: 44px; border-radius: 30px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: #1C1C1E; font-size: 1.4rem; box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.8);
         }
 
-        @media (hover: hover) {
-            .tilt-effect {
-                transition: transform 0.2s ease-out;
-                will-change: transform;
-            }
-        }
+        @media (hover: hover) { .tilt-effect { transition: transform 0.2s ease-out; will-change: transform; } }
 
         /* ===== АДАПТИВ ===== */
         @media (max-width: 860px) {
@@ -678,50 +324,18 @@
             .nav-menu { gap: 20px; }
             .about-grid { grid-template-columns: 1fr; gap: 40px; }
             .edge-blur-top, .edge-blur-bottom { height: 150px; }
-            .floating-theme-toggle {
-                bottom: 80px;
-                right: 16px;
-                width: 44px;
-                height: 44px;
-                font-size: 1.1rem;
-            }
-            .series-current-title {
-                font-size: 1.8rem;
-            }
-            .portfolio-gallery {
-                padding: 20px 12px 0 12px;
-            }
-            .series-grid {
-                gap: 16px;
-                max-width: 600px;
-            }
-            .series-block {
-                flex: 0 0 100%;
-                padding: 0 10px;
-            }
-            .series-arrow {
-                display: none;
-            }
-            .more-photos-block p {
-                font-size: 1rem;
-            }
-            .more-photos-block .glass-button {
-                font-size: 0.95rem;
-                padding: 10px 28px;
-            }
-            .lightbox-content {
-                max-width: 95vw;
-                max-height: 95vh;
-            }
-            .lightbox-content img {
-                max-height: 85vh;
-            }
-            .close-lightbox {
-                top: -40px;
-                width: 36px;
-                height: 36px;
-                font-size: 1.2rem;
-            }
+            .floating-theme-toggle { bottom: 80px; right: 16px; width: 44px; height: 44px; font-size: 1.1rem; }
+            .series-current-title { font-size: 1.8rem; }
+            .portfolio-gallery { padding: 20px 12px 0 12px; }
+            .series-grid { gap: 16px; max-width: 600px; }
+            .series-block { flex: 0 0 100%; padding: 0 10px; }
+            .series-arrow { display: none; }
+            .more-photos-block p { font-size: 1rem; }
+            .more-photos-block .glass-button { font-size: 0.95rem; padding: 10px 28px; }
+            .lightbox-content { max-width: 95vw; max-height: 95vh; }
+            .lightbox-content img { max-height: 85vh; }
+            .close-lightbox { top: -40px; width: 36px; height: 36px; font-size: 1.2rem; }
+            body.scrolled .glass-top-bar { padding: 6px 24px; }
         }
 
         @media (max-width: 640px) {
@@ -733,55 +347,33 @@
             .edge-blur-top, .edge-blur-bottom { height: 120px; }
             .glass-top-bar { padding: 4px 16px; }
             .top-logo { font-size: 1rem; }
-            .floating-theme-toggle {
-                bottom: 80px;
-                right: 16px;
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            .series-current-title {
-                font-size: 1.5rem;
-            }
+            .floating-theme-toggle { bottom: 80px; right: 16px; width: 40px; height: 40px; font-size: 1rem; }
+            .series-current-title { font-size: 1.5rem; }
             .portfolio-gallery {
-                padding: 16px 8px 0 8px;
+                padding: 16px 12px 0 12px;
+                overflow: visible;
             }
-            .series-grid {
-                gap: 12px;
-            }
-            .series-block {
-                padding: 0 5px;
-            }
-            .series-arrow {
-                display: none;
-            }
+            .series-grid { gap: 12px; }
+            .series-block { padding: 0 5px; }
+            .series-arrow { display: none; }
             .more-photos-block {
-                margin-top: 20px;
-                padding-top: 16px;
+                margin: 20px -12px 0 -12px;
+                padding: 16px 12px;
+                border-radius: 0;
+                border-top: 1px solid var(--glass-border);
+                border-bottom: none;
+                background: var(--glass-bg);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                box-shadow: var(--glass-shadow-out), var(--glass-shadow-in);
             }
-            .more-photos-block p {
-                font-size: 0.95rem;
-            }
-            .more-photos-block .glass-button {
-                font-size: 0.9rem;
-                padding: 10px 24px;
-            }
-            .lightbox-content {
-                max-width: 98vw;
-                max-height: 98vh;
-                padding: 10px;
-            }
-            .lightbox-content img {
-                max-height: 80vh;
-                border-radius: 20px;
-            }
-            .close-lightbox {
-                top: -30px;
-                right: 10px;
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
-            }
+            .more-photos-block p { font-size: 0.95rem; }
+            .more-photos-block .glass-button { font-size: 0.9rem; padding: 10px 24px; }
+            .lightbox-content { max-width: 98vw; max-height: 98vh; padding: 10px; }
+            .lightbox-content img { max-height: 80vh; border-radius: 20px; }
+            .close-lightbox { top: -30px; right: 10px; width: 32px; height: 32px; font-size: 1rem; }
+            body.scrolled .glass-top-bar { padding: 6px 16px; }
+            body.scrolled .top-logo { font-size: 1rem; }
         }
 
         @keyframes fadeUp {
@@ -800,9 +392,11 @@
     </div>
     <div class="edge-blur-top"></div>
     <div class="edge-blur-bottom"></div>
+
     <div class="glass-top-bar">
         <div class="top-logo">Егор RONTIK</div>
     </div>
+
     <div class="glass-bottom-bar">
         <div class="nav-menu" id="navMenu">
             <a class="nav-link" data-section="home">Главная</a>
@@ -812,9 +406,8 @@
             <div class="nav-indicator" id="navIndicator"></div>
         </div>
     </div>
-    <div class="floating-theme-toggle" id="themeToggle">
-        <i class="fa-regular fa-sun"></i>
-    </div>
+
+    <div class="floating-theme-toggle" id="themeToggle"><i class="fa-regular fa-sun"></i></div>
 
     <main>
         <!-- HERO -->
@@ -858,75 +451,43 @@
                         </button>
 
                         <div class="series-scroll" id="seriesScroll">
-                            <!-- СЕРИЯ 1 -->
+                            <!-- СЕРИЯ 1 (4 фото) -->
                             <div class="series-block" data-title="🌆 Вечерние огни">
                                 <div class="series-grid">
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/20/1200/900">
-                                        <img src="https://picsum.photos/id/20/600/450" alt="Фото 1">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/26/1200/900">
-                                        <img src="https://picsum.photos/id/26/600/450" alt="Фото 2">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/30/1200/900">
-                                        <img src="https://picsum.photos/id/30/600/450" alt="Фото 3">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/36/1200/900">
-                                        <img src="https://picsum.photos/id/36/600/450" alt="Фото 4">
-                                    </div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/20/1200/900"><img src="https://picsum.photos/id/20/600/450" alt="Фото 1"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/26/1200/900"><img src="https://picsum.photos/id/26/600/450" alt="Фото 2"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/30/1200/900"><img src="https://picsum.photos/id/30/600/450" alt="Фото 3"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/36/1200/900"><img src="https://picsum.photos/id/36/600/450" alt="Фото 4"></div>
                                 </div>
                             </div>
 
-                            <!-- СЕРИЯ 2 -->
+                            <!-- СЕРИЯ 2 (4 фото) -->
                             <div class="series-block" data-title="🌙 Ночные портреты">
                                 <div class="series-grid">
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/42/1200/900">
-                                        <img src="https://picsum.photos/id/42/600/450" alt="Фото 5">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/55/1200/900">
-                                        <img src="https://picsum.photos/id/55/600/450" alt="Фото 6">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/60/1200/900">
-                                        <img src="https://picsum.photos/id/60/600/450" alt="Фото 7">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/66/1200/900">
-                                        <img src="https://picsum.photos/id/66/600/450" alt="Фото 8">
-                                    </div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/42/1200/900"><img src="https://picsum.photos/id/42/600/450" alt="Фото 5"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/55/1200/900"><img src="https://picsum.photos/id/55/600/450" alt="Фото 6"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/60/1200/900"><img src="https://picsum.photos/id/60/600/450" alt="Фото 7"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/66/1200/900"><img src="https://picsum.photos/id/66/600/450" alt="Фото 8"></div>
                                 </div>
                             </div>
 
-                            <!-- СЕРИЯ 3 -->
+                            <!-- СЕРИЯ 3 (4 фото) -->
                             <div class="series-block" data-title="☀️ Дневной свет">
                                 <div class="series-grid">
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/72/1200/900">
-                                        <img src="https://picsum.photos/id/72/600/450" alt="Фото 9">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/80/1200/900">
-                                        <img src="https://picsum.photos/id/80/600/450" alt="Фото 10">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/88/1200/900">
-                                        <img src="https://picsum.photos/id/88/600/450" alt="Фото 11">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/96/1200/900">
-                                        <img src="https://picsum.photos/id/96/600/450" alt="Фото 12">
-                                    </div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/72/1200/900"><img src="https://picsum.photos/id/72/600/450" alt="Фото 9"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/80/1200/900"><img src="https://picsum.photos/id/80/600/450" alt="Фото 10"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/88/1200/900"><img src="https://picsum.photos/id/88/600/450" alt="Фото 11"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/96/1200/900"><img src="https://picsum.photos/id/96/600/450" alt="Фото 12"></div>
                                 </div>
                             </div>
 
-                            <!-- СЕРИЯ 4 -->
+                            <!-- СЕРИЯ 4 (4 фото) -->
                             <div class="series-block" data-title="🖤 Чёрно-белая классика">
                                 <div class="series-grid">
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/100/1200/900">
-                                        <img src="https://picsum.photos/id/100/600/450" alt="Фото 13">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/101/1200/900">
-                                        <img src="https://picsum.photos/id/101/600/450" alt="Фото 14">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/102/1200/900">
-                                        <img src="https://picsum.photos/id/102/600/450" alt="Фото 15">
-                                    </div>
-                                    <div class="series-grid-item" data-src="https://picsum.photos/id/103/1200/900">
-                                        <img src="https://picsum.photos/id/103/600/450" alt="Фото 16">
-                                    </div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/100/1200/900"><img src="https://picsum.photos/id/100/600/450" alt="Фото 13"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/101/1200/900"><img src="https://picsum.photos/id/101/600/450" alt="Фото 14"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/102/1200/900"><img src="https://picsum.photos/id/102/600/450" alt="Фото 15"></div>
+                                    <div class="series-grid-item" data-src="https://picsum.photos/id/103/1200/900"><img src="https://picsum.photos/id/103/600/450" alt="Фото 16"></div>
                                 </div>
                             </div>
                         </div>
@@ -936,7 +497,7 @@
                         </button>
                     </div>
 
-                    <!-- ===== НОВАЯ ПЛАШКА С КНОПКОЙ ===== -->
+                    <!-- Плашка "Больше фото" -->
                     <div class="more-photos-block fade-up">
                         <p>Больше фото в моем ТГ канале</p>
                         <a href="https://t.me/lifeforphoto" target="_blank" rel="noopener noreferrer" class="glass-button tilt-effect">
@@ -947,7 +508,7 @@
             </div>
         </section>
 
-        <!-- CONTACTS -->
+        <!-- CONTACTS (email убран) -->
         <section class="section" id="contacts">
             <div class="container">
                 <h2 class="section-title fade-up">Связь</h2>
@@ -959,7 +520,7 @@
                         </a>
                     </div>
                     <div class="contact-info">
-                        <p><i class="fa-regular fa-envelope"></i> egor@rontik.photo</p>
+                        <!-- Убрана строка с email -->
                         <p><i class="fa-solid fa-location-dot"></i> Егорьевск / Онлайн-съёмка</p>
                     </div>
                 </div>
@@ -967,9 +528,7 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <p>© 2026 Егор RONTIK — фотограф в стиле жидкого стекла</p>
-    </footer>
+    <!-- ФУТЕР УДАЛЁН -->
 
     <!-- ЛАЙТБОКС -->
     <div class="lightbox" id="lightbox">
@@ -984,7 +543,6 @@
             // === ТЕМА ===
             const themeToggle = document.getElementById('themeToggle');
             const toggleIcon = themeToggle.querySelector('i');
-
             function setTheme(theme) {
                 if (theme === 'dark') {
                     document.body.classList.add('dark');
@@ -1003,7 +561,7 @@
                 setTheme(isDark ? 'light' : 'dark');
             });
 
-            // === НАВИГАЦИЯ (без изменений) ===
+            // === НАВИГАЦИЯ ===
             const sections = [
                 { id: 'home', navId: 'home' },
                 { id: 'about', navId: 'about' },
@@ -1103,6 +661,15 @@
                 if (activeLink) updateIndicator(activeLink);
             });
 
+            // === АНИМАЦИЯ СКРОЛЛА ДЛЯ ЗАГОЛОВКА ===
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    document.body.classList.add('scrolled');
+                } else {
+                    document.body.classList.remove('scrolled');
+                }
+            }, { passive: true });
+
             // === ДИНАМИЧЕСКИЙ БЛИК ===
             function updateScrollHighlight() {
                 const scrollY = window.scrollY;
@@ -1154,14 +721,16 @@
             }, { threshold: 0.2, rootMargin: "0px 0px -20px 0px" });
             fadeElements.forEach(el => fadeObserver.observe(el));
 
-            // === ОБНОВЛЕНИЕ ЗАГОЛОВКА СЕРИИ И СТРЕЛКИ ===
+            // === ОБНОВЛЕНИЕ ЗАГОЛОВКА СЕРИИ С АНИМАЦИЕЙ ===
             const scrollContainer = document.getElementById('seriesScroll');
             const titleElement = document.getElementById('seriesTitle');
             const blocks = document.querySelectorAll('.series-block');
             const arrowLeft = document.getElementById('arrowLeft');
             const arrowRight = document.getElementById('arrowRight');
 
-            function updateSeriesTitle() {
+            let currentTitle = titleElement.textContent;
+
+            function updateSeriesTitle(animate = true) {
                 if (!scrollContainer || !titleElement || blocks.length === 0) return;
 
                 const containerRect = scrollContainer.getBoundingClientRect();
@@ -1182,7 +751,18 @@
 
                 if (activeBlock) {
                     const newTitle = activeBlock.getAttribute('data-title') || 'Серия';
-                    titleElement.textContent = newTitle;
+                    if (newTitle !== currentTitle) {
+                        currentTitle = newTitle;
+                        if (animate) {
+                            titleElement.classList.add('animating');
+                            setTimeout(() => {
+                                titleElement.textContent = newTitle;
+                                titleElement.classList.remove('animating');
+                            }, 250);
+                        } else {
+                            titleElement.textContent = newTitle;
+                        }
+                    }
                 }
             }
 
@@ -1224,14 +804,14 @@
             }
 
             scrollContainer.addEventListener('scroll', () => {
-                requestAnimationFrame(updateSeriesTitle);
+                requestAnimationFrame(() => updateSeriesTitle(true));
             });
 
             arrowLeft.addEventListener('click', () => scrollToBlock(-1));
             arrowRight.addEventListener('click', () => scrollToBlock(1));
 
-            window.addEventListener('resize', updateSeriesTitle);
-            setTimeout(updateSeriesTitle, 100);
+            window.addEventListener('resize', () => updateSeriesTitle(false));
+            setTimeout(() => updateSeriesTitle(false), 100);
 
             // === ЛАЙТБОКС ===
             const lightbox = document.getElementById('lightbox');
